@@ -1,0 +1,291 @@
+---
+layout: post
+title:  "Установка и настройка LAMP под Opencart"
+date:   2018-05-10 12:11:03
+categories: opencart
+comments: true
+<!-- permalink: /categories/:categories/:title -->
+
+description: >
+  Настройка и установка LAMP на платформе Ubuntu 16.04 под OpenCart
+  <p>- Apache2</p>
+  <p>- php</p>
+    - phpmyadmin
+  <p>- MySql</p>
+    - Создание БД
+  <p>-OpenCart 3.x</p>
+
+tags: [ opencart, lamp ]
+---
+
+<ul>
+	<li>
+		<h3 class="title-list">Apache2</h3>
+		<h4 class="title-list">Установка</h4>
+		<div class="case-bar">
+			<div class="title-status">
+				<div class="text-terminal"></div>
+			</div>
+				<pre class="bg-terminal"><span>sudo apt-get update</span><span>sudo apt-get install apache2 apache2-utils</span></pre>
+		</div>
+	</li>
+	<li>
+		<ul>
+			<li>
+				<p>Создаем деректорию сайта.</p>
+				<div class="case-bar">
+					<div class="title-status">
+						<div class="text-terminal"></div>
+					</div>
+					<pre class="bg-terminal"><span>sudo mkdir -p /var/www/example.com</span></pre>
+				</div>
+			</li>
+			<li>
+				<p>Даем доступ в папку.</p>
+				<div class="case-bar">
+					<div class="title-status">
+						<div class="text-terminal"></div>
+					</div>
+					<pre class="bg-terminal"><span>sudo chown -R $USER:$USER /var/www/example.com</span><span>sudo chmod -R 755 /var/www or sudo chmod -R 755 /var/www/example.com</span></pre>
+				</div>
+			</li>
+			<li>
+				<p>Создаем index.html файл для проверки.</p>
+				<div class="case-bar">
+					<div class="title-status">
+						<div class="text-terminal"></div>
+					</div>
+					<pre class="bg-terminal"><span>sudo gedit /var/www/example.com/index.html</span></pre>
+				</div>
+				<p>Сохраняем в него</p>
+				<div class="case-bar">
+					<div class="title-status">
+						<span class="text-texteditor"></span>
+					</div>
+					<pre class="bg-texteditor"><code class="html"><span class="line-painting line-1"></span>&lt;html&gt;<br><span class="line-painting line-2"></span> &lt;head&gt;<br><span class="line-painting line-3"></span>  &lt;title&gt;Welcome to Example.com!&lt;/title&gt;<br><span class="line-painting line-4"></span> &lt;/head&gt;<br><span class="line-painting line-5"></span> &lt;body&gt;<br><span class="line-painting line-6"></span>  &lt;h1&gt;Success!  The example.com virtual host is working!&lt;/h1&gt;<br><span class="line-painting line-7"></span> &lt;/body&gt;<br><span class="line-painting line-8"></span>&lt;/html&gt;<br></code></pre>
+				</div>
+			</li>
+		</ul>
+	</li>
+	<li>
+		<h4 class="title-list">Настройка конфига для нашего нового сайта</h4>
+		<ul>
+			<li>
+				<p>Дублируем стандартный конфиг</p>
+				<div class="case-bar">
+					<div class="title-status">
+						<div class="text-terminal"></div>
+					</div>
+					<pre class="bg-terminal"><span>sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/example.com.conf</span></pre>
+				</div>
+			</li>
+			<li>		
+				<p>Редактируем конфиг нашего сайта.</p>
+				<div class="case-bar">
+					<div class="title-status">
+						<div class="text-terminal"></div>
+					</div>
+						<pre class="bg-terminal"><span>sudo gedit /etc/apache2/sites-available/example.com.conf</span></pre>
+				</div>
+				<div class="case-bar">
+					<div class="title-status">
+						<span class="text-texteditor">
+						</span>
+					</div>
+					<pre class="bg-texteditor"><code class="html"><span class="line-painting line-1"></span>&lt;VirtualHost *:80&gt;			<span class="hljs-comment">//порт сайта<br></span><span class="line-painting line-2"></span> ServerAdmin admin@example.com 	<span class="hljs-comment">//емейл админа<br></span><span class="line-painting line-3"></span> ServerName example.com 		<span class="hljs-comment">//название сайта<br></span><span class="line-painting line-4"></span> ServerAlias www.example.com 		<span class="hljs-comment">//адресс сайта<br></span><span class="line-painting line-5"></span> DocumentRoot /var/www/example.com  	<span class="hljs-comment">//путь к файлам сайта<br></span><span class="line-painting line-6"></span> ErrorLog ${APACHE_LOG_DIR}/<br><span class="line-painting line-7"></span> CustomLog ${APACHE_LOG_DIR}/access.log combined<br><span class="line-painting line-8"></span>&lt;/VirtualHost&gt;</code></pre>
+				</div>
+			</li>
+			<li>
+				<p>Применям наш конфиг.</p>
+				<div class="case-bar">
+					<div class="title-status">
+						<div class="text-terminal"></div>
+					</div>
+					<pre class="bg-terminal"><span>sudo a2ensite example.com.conf</span></pre>
+				</div>
+			</li>
+			<li>
+				<p>Отключаем стандартный конфиг apache2.</p>
+				<p>Который ищет сайт в /var/www или /var/www/html</p>
+				<div class="case-bar">
+					<div class="title-status">
+						<div class="text-terminal"></div>
+					</div>
+					<pre class="bg-terminal"><span>sudo a2dissite 000-default.conf</span></pre>
+				</div>
+			</li>
+			<li>
+				<p>Перезапускам сервер apache2.</p>
+				<div class="case-bar">
+					<div class="title-status">
+						<div class="text-terminal"></div>
+					</div>
+					<pre class="bg-terminal"><span>sudo service apache2 restart</span></pre>
+				</div>
+			</li>
+			<li>	
+				<p>Редактируем host файла для доступа на сайт по ip или адрессу на локальной машине</p>
+				<div class="case-bar">
+					<div class="title-status">
+						<div class="text-terminal"></div>
+					</div>
+					<pre class="bg-terminal"><span>sudo gedit /etc/hosts</span></pre>
+				</div>
+				<div class="case-bar">
+					<div class="title-status">
+						<span class="text-texteditor"></span>
+					</div>
+					<pre class="bg-texteditor"><code class="html"><span class="line-painting line-1"></span>127.0.0.1   localhost<br><span class="line-painting line-2"></span>127.0.1.1   guest-desktop<br><span class="line-painting line-3"></span>127.0.0.1 example.com<br><span class="line-painting line-4"></span>192.168.0.253 test.com<br></code></pre>
+				</div>
+				<p>Заходим на сайт по адрессу <a href="http://example.com">http://example.com</a> и проверяем работоспособность сайта</p>
+			</li>
+		</ul>
+	</li>
+</ul>
+<ul>
+	<li>
+		<h3 class="title-list">Установка и настройка PHP и MySql</h3>
+		<h4 class="title-list">PHP</h4>
+		<div class="case-bar">
+			<div class="title-status">
+				<div class="text-terminal"></div>
+			</div>
+			<pre class="bg-terminal"><span>sudo apt install php7.0 php7.0-mysql libapache2-mod-php7.0 php7.0-cli php7.0-cgi php7.0-gd php7.0-zip php7.0-xml php-curl php7.0-mcrypt</span></pre>
+		</div>		
+	</li>
+	<li>
+		<h4 class="title-list">MySql</h4>
+		<div class="case-bar">
+			<div class="title-status">
+				<div class="text-terminal"></div>
+			</div>
+			<pre class="bg-terminal"><span>sudo apt-get install mysql-server mysql-client</span></pre>
+		</div>		
+	</li>
+	<li>
+		<p>Заходим в MySql.</p>
+		<div class="case-bar">
+			<div class="title-status">
+				<div class="text-terminal"></div>
+			</div>
+			<pre class="bg-terminal"><span>mysql -u root -p</span></pre>
+		</div>		
+	</li>	
+	<li>
+		<p>Создаем БД.</p>
+		<div class="case-bar">
+			<div class="title-status">
+				<div class="text-terminal"></div>
+			</div>
+			<pre class="bg-terminal"><span>сreate database opencart character set utf8 collate utf8_bin;</span></pre>
+		</div>
+		<p class="comment	warning-comment">// Название нашей БД opencart.</p>
+	</li>
+	<li>
+		<p>Создаем пользователя и ставим пароль на БД.</p>
+		<div class="case-bar">
+			<div class="title-status">
+				<div class="text-terminal"></div>
+			</div>
+			<pre class="bg-terminal"><span>grant all privileges on opencart.* to opencart_user@localhost identified by "opencartpassopencart";</span></pre>
+		</div>
+		<p class="comment	warning-comment">//  Выбираем БД opencart.* // Указыкам логин пользователя opencart_user@localhost // Указываем наш пароль opencartpassopencart.</p>
+	</li>
+	<li>
+		<p>Принимаем наши изменения и выходим с MySql</p>
+		<div class="case-bar">
+			<div class="title-status">
+				<div class="text-terminal"></div>
+			</div>
+			<pre class="bg-terminal"><span>flush privileges;</span><br><span>exit</span></pre>
+		</div>
+	</li>
+	<ul>
+		<li>
+			<h4 class="title-list">phpMyAdmin</h4>
+		<div class="case-bar">
+			<div class="title-status">
+				<div class="text-terminal"></div>
+			</div>
+			<pre class="bg-terminal"><span>sudo apt-get install phpmyadmin php-mbstring php-gettext</span></pre>
+		</div>		
+		<p class="comment alert-comment">// Внимание: Во время первого диалога apache2 подсвечен, но не выбран. Если вы не нажмёте Пробел для выбора Apache, установщик не переместит необходимые файлы в процессе установки. Нажмите Пробел, Tab, а затем Enter для выбора Apache.</p>
+			<ol>
+				<li>
+					При выборе сервера, выберите apache2.
+				</li>
+				<li>
+					Ответьте yes на вопрос, хотите ли вы использовать dbconfig-common для настройки базы данных.
+				</li>
+				<li>
+					У вас будет запрошен пароль администратора базы данных.
+				</li>
+				<li>
+					Далее вам будет предложено ввести и повторить пароль для самого phpMyAdmin.
+				</li>
+			</ol>
+		</li>
+
+		<li>
+			<p>Включаем расширения для PHP.</p>
+			<div class="case-bar">
+				<div class="title-status">
+					<div class="text-terminal"></div>
+				</div>
+				<pre class="bg-terminal"><span>sudo phpenmod mcrypt</span><br><span>sudo phpenmod mbstring</span><br></pre>
+			</div>
+		</li>
+		<li>
+			<p>В процессе установки в директорию <b>/etc/apache2/conf-enabled/</b> будет добавлен файл конфигурации phpMyAdmin для Apache. Необходимо его применить.</p>
+			<div class="case-bar">
+				<div class="title-status">
+					<div class="text-terminal"></div>
+				</div>
+				<pre class="bg-terminal"><span>sudo ln -s /etc/phpmyadmin/apache.conf /etc/apache2/conf-available/phpmyadmin.conf</span><br><span>sudo a2enconf phpmyadmin</span><br><span>sudo /etc/init.d/apache2 reload</span><br></pre>
+			</div>
+			<p>Проверяем роботоспособность. Заходим на наш сайт <a href="http://example.com/phpmyadmin/">http://example.com/phpmyadmin/</a>.</p>	
+		</li>
+	</ul>
+</ul>
+<ul>
+	<li>
+		<h3 class="title-list">OpenCart</h3>
+		<h4 class="title-list">Установка и настройка</h4>
+		<p>Скачиваем архив с офф.сайта <a href="http://opencart.com">opencart.com</a>.</p>
+		<p>Распаковывам архив и копируем все файлы с папки Upload в корневую папку нашего сайта.</p>
+		<p>Переменовывам файлы <b>config-dist.php</b> в папке нашего сайта и в папке Admin в <b>config.php</b>.</p>
+		<div class="case-bar">
+			<div class="title-status">
+				<div class="text-terminal"></div>
+			</div>
+			<pre class="bg-terminal"><span>cp /var/www/example.com/config-dist.php /var/www/example.com/config.php</span><br><span>cp /var/www/example.com/admin/config-dist.php /var/www/example.com/admin/config.php</span><br></pre>
+		</div>		
+	</li>
+	<li>
+		<p>Даем доступ к нашему локальному сайту для перезаписи и записи файлов,</p>
+		<div class="case-bar">
+			<div class="title-status">
+				<div class="text-terminal"></div>
+			</div>
+			<pre class="bg-terminal"><span>chown -R www-data.www-data /var/www/example.com/</span><br><span>chmod -R 755 /var/www/example.com/</span><br></pre>
+		</div>		
+	</li>
+	<li>
+		<p>Перезапускаем сервис Apache2.</p>
+		<div class="case-bar">
+			<div class="title-status">
+				<div class="text-terminal"></div>
+			</div>
+			<pre class="bg-terminal"><span>/etc/init.d/apache2 restart</span></pre>
+		</div>		
+		<p>Заходим на сайт <a href="http://example.com/opencart">IP-сервера/opencart/</a>.</p>	
+		<p>Далее вводим данные которые мы указывали в MySql.</p>
+		<p>Удаляем папке install.</p>
+		<div class="case-bar">
+			<div class="title-status">
+				<div class="text-terminal"></div>
+			</div>
+			<pre class="bg-terminal"><span>rm -rf /var/www/example.com/install/</span></pre>
+		</div>			
+	</li>
+</ul>

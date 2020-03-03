@@ -1,0 +1,166 @@
+article.inside-post{
+	font-family: sans-serif;
+	text-align: left;
+	font-size: 15px;
+	.post{
+
+	}
+	ul{
+		line-height: 1.2;
+		list-style-type: none;
+		margin: 0 0 40px;
+	}
+	ol{
+		margin-left: 40px;
+		line-height: 1.2;
+	}
+
+}
+
+.title-list{
+	margin: 20px;
+	text-align: center;
+	text-decoration: underline;
+}
+
+.comment{
+	border-radius: 5px;
+	border-bottom: 4px;
+	 box-shadow: 0 0 5px #000000;
+	padding: 10px;
+}
+
+.warning-comment{
+	background-color: #fbdb65;
+}
+
+.alert-comment{
+	background-color: #e45454;
+	color: #fff;
+}
+
+.case-bar{
+	margin: 20px 0;
+	color: #fff;
+	font-weight: 500;
+	.title-status{
+		border-radius: 4px 4px 0px 0px;
+		padding: 5px;
+		margin: 0;
+		background-color: #555;
+		font-size: 14px;
+		.text-terminal:before{
+			content: "Terminal";
+		}
+		.text-texteditor:before{
+			content: "TextEditor";
+		}
+	}
+	.bg-texteditor{
+		border: 0;
+		border-radius: 0;
+		padding: 15px 10px;
+		background-color: #241c22;
+
+	}
+	.bg-terminal{
+		border: 0;
+		border-radius: 0;
+		padding: 15px 15px;
+		background-color: #111;
+		span{
+			margin: 0;
+			line-height: 2;
+			color: #fff;
+			font-size: 16px;
+		}
+	}
+	code{
+		padding: 0;
+		font-size: 16px;
+		line-height: 0.5;
+		color: #fff;
+		background-color: #241c22;
+	}
+}
+
+// markup for HTML
+.html{
+	padding: 0;
+	.hljs-tag{
+		color: #fff;
+		.hljs-name{
+			color: red;
+		}
+		.hljs-attr{
+			color:  #4db724;
+		}
+	}
+	.hljs-comment{
+		color: #888;
+	}
+}
+
+.line-painting{
+	padding-right: 15px;
+	font-weight: 500;
+	font-size: 16px;
+	color: #777;
+}
+@for $i from 1 through 10 {
+  .line-#{$i}:before { 
+  	content: "#{$i}";
+  }
+}
+// markup for HTML END
+
+// markup for JS
+.js{
+	padding: 0;
+	background-image: url();
+	.hljs-keyword{
+		color: red;
+	}
+	.hljs-string{
+		color: #fce17e;
+	}
+	//function
+	.hljs-function{
+		color: #0cf;
+		.hljs-keyword{
+			color: #0cf;
+		}
+		.hljs-title{
+			color: #9c9;
+		}
+		.hljs-params{
+			color: #FD971F;
+		}
+	}
+	//function END
+	.hljs-number{
+		color: #8775F5;
+	}
+	.hljs-comment{
+		color: #888;
+	}
+}
+// markup for JS END
+
+.line-painting{
+	padding-right: 15px;
+	font-weight: 500;
+	font-size: 16px;
+	color: #777;
+}
+@for $i from 1 through 10 {
+  .line-#{$i}:before { 
+  	content: "#{$i}";
+  }
+}
+
+//img in post
+.img-post{
+	max-width: 80%;
+	margin: 0 10% 10px;
+}

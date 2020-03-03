@@ -1,0 +1,30 @@
+---
+layout: post
+title:  "Вывод сообщения с интервалом"
+date:   2018-06-10 15:11:03
+categories: javascript
+comments: true
+<!-- permalink: /categories/:categories/:title -->
+
+description: >
+  Вывод сообщения с интервалом с помощью JS.
+
+
+tags: [ javascript ]
+---
+
+<div class="case-bar">
+	<div class="title-status">
+		<div class="text-texteditor"></div>
+	</div>
+	<pre class="bg-texteditor"><code class="js">for(times = 0; times < 3; times++) {
+	var ms = 3000;
+   <span class="hljs-function">timerHandlerr</span>(times, ms);
+}
+function timerHandler(times, ms) {
+ <span class="hljs-function">setTimeout</span>(function(){
+    alert("Message");
+   }, times * ms);
+}
+	</code></pre>
+</div>

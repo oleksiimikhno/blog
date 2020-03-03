@@ -1,0 +1,32 @@
+<aside class="col-md-4 aside-panel">
+<div class="panel-group" id="accordion">
+{% for category in site.categories %}
+  <div class="panel panel-default">
+  	<!-- He catch var and take to first category_name arhone to .panel-title-link href link -->
+		{% capture category_name %}{{ category | first }}{% endcapture %}
+	<!--  -->
+  		<a class="panel-title-link" data-toggle="collapse" data-parent="#accordion" href="#{{ category_name | slugize }}">
+  			<div class="panel-heading active-panel">
+			      <div id="#{{ category_name | slugize }}"></div>
+			    	<h2 class="panel-title">
+						<i class="icon-{{ category_name }}"></i>
+						{{ category_name }}
+					</h2>
+					<span class="under-line"></span>
+		 	</div>
+		</a>
+		<div id="{{ category_name | slugize }}" class="panel-collapse collapse">
+			<div class="panel-body">
+				<a name="{{ category_name | slugize }}"></a>
+			{% for post in site.categories[category_name] %}
+				<article class="archive-item">
+					<h4><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a></h4>
+				</article>
+			{% endfor %}
+			</div>
+		</div>
+  </div>
+{% endfor %}
+</div>
+	{% include tag-plugin/archive.html %}
+</aside>

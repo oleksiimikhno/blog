@@ -1,0 +1,84 @@
+---
+layout: post
+title:  "Настройка ЧПУ/SEO-Friednly URL в Opencart 3.x"
+date:   2018-07-19 12:11:03
+categories: opencart
+comments: true
+<!-- permalink: /categories/:categories/:title -->
+
+description: >
+  Настриваем и исправляем проблемы ЧПУ/SEO-Friednly URL в Opencart. 
+  Также проверяем наличия .htaccess на нашем сайте и даем доступ к файлу apache2.
+
+tags: [ opencart, lamp, seo ]
+---
+
+<h3 class="title-list">Включаем SEO URL Keywords</h3>
+		<p>Для начала нам нужно включить SEO URL в System>Settings>Server>Use SEO URLs.</p>
+		<img class="img-post" src="http://docs.opencart.com/image/administration/admin-enable-seo-url.png" alt="admin-enable-seo-url">
+
+		<p>Далее в нашей корневой папке сайта или локального сервера нужно найти файл .htaccess.txt и переименуем его в .htaccess.</p>
+		<p class="comment alert-comment">Внимание: На ОС типа Ubuntu файлы с приставкой точка[названия файла] ".example" скрываются самой системой. Для отображения таких файлов достаточно нажать ctrl+H.</p>
+		<p>Если данного файла нет в вашей папке его можно создать с нуля назвав .htaccess и скопировав его ниже.</p>
+		<a href="#spoiler-1" data-toggle="collapse" class="btn btn-primary">Конфиг файла .htaccess для Opencart 3.x</a>
+			<div class="collapse" id="spoiler-1">
+			   <div class="well">
+<pre class="bg-texteditor"><code class="html"><span class=".hljs-comment">
+# 1.To use URL Alias you need to be running apache with mod_rewrite enabled.
+# 2. In your opencart directory rename htaccess.txt to .htaccess.
+# For any support issues please visit: http://www.opencart.com
+Options +FollowSymlinks
+# Prevent Directoy listing
+Options -Indexes
+# Prevent Direct Access to files
+<FilesMatch "\.(tpl|ini|log)">
+ Order deny,allow
+ Deny from all
+</FilesMatch>
+# SEO URL Settings
+RewriteEngine On
+# If your opencart installation does not run on the main web folder make sure you folder it does run in ie. / becomes /shop/
+RewriteBase /
+RewriteRule ^sitemap.xml$ index.php?route=feed/google_sitemap [L]
+RewriteRule ^googlebase.xml$ index.php?route=feed/google_base [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !.*\.(ico|gif|jpg|jpeg|png|js|css)
+RewriteRule ^([^?]*) index.php?_route_=$1 [L,QSA]
+### Additional Settings that may need to be enabled for some servers
+### Uncomment the commands by removing the # sign in front of it.
+### If you get an "Internal Server Error 500" after enabling any of the following settings, restore the # as this means your host doesn't allow that.
+# 1. If your cart only allows you to add one item at a time, it is possible register_globals is on. This may work to disable it:
+# php_flag register_globals off
+# 2. If your cart has magic quotes enabled, This may work to disable it:
+# php_flag magic_quotes_gpc Off
+# 3. Set max upload file size. Most hosts will limit this and not allow it to be overridden but you can try
+# php_value upload_max_filesize 999M
+# 4. set max post size. uncomment this line if you have a lot of product options or are getting errors where forms are not saving all fields
+# php_value post_max_size 999M
+# 5. set max time script can take. uncomment this line if you have a lot of product options or are getting errors where forms are not saving all fields
+# php_value max_execution_time 200
+# 6. set max time for input to be recieved. Uncomment this line if you have a lot of product options or are getting errors where forms are not saving all fields
+# php_value max_input_time 200
+# 7. disable open_basedir limitations
+# php_admin_value open_basedir none </span></code></pre>
+			   </div>
+			</div>
+		<p></p>
+		<p class="comment	warning-comment">Если ваш сайт находится дерикторией выше. Найдите в файле .htaccess строку  RewriteBase / и допишите путь Пример: RewriteBase /namesite</p>
+		<p>Дальше нам нужно дописать в каждый SEO Keyword для каждого названия товаров, категорий и тд. Если у вас стоит больше одного языка Keywords не должны совпадать друг с другом. Я использую для этого бессплатный модуль <a href="https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=20059">Opencart SEO Admin Auto URL</a> Автозаполнение идет по названию категории/товара и тд.</p>
+		<img class="img-post" src="http://docs.opencart.com/image/administration/admin-product-seo-url-example.png" alt="admin-product-seo-url-example">
+		<p class="comment	warning-comment">Самое важное, очем зачастую не указывается. И из-за этого не работает на локальном сервере ЧПУ/SEO-Friednly URL в Opencart. Нам необходимо дать доступ Apache2 к файлу .htaccess для этого нам нужно по пути /etc/apache2 найти конфиг apache2.conf. В файле найти пункт <strong>AllowOverrid None и переменовать его в AllowOverrid All</strong>. <p class="comment">Внимание! Он может быть там не один! Нам нобходим тот, что указывает в деректорию нашего сайта Directory /var/www/</p></p>
+		<div class="case-bar">
+			<div class="title-status">
+				<span class="text-texteditor"></span>
+			</div>
+			<pre class="bg-texteditor"><code class="html"><span class="line-painting line-1"></span>&lt;Directory /var/www/&gt;<br><span class="line-painting line-2"></span>  Options Indexes FollowSymLinks<br><span class="line-painting line-3"></span>  AllowOverride All<br><span class="line-painting line-4"></span>  Require all granted<br><span class="line-painting line-5"></span>&lt;/Directory&gt;<br></code></pre>
+		</div>
+		<p>После этого включаем rewrite_module и перезапускаем сервер apache2.</p>
+<div class="case-bar">
+	<div class="title-status">
+		<div class="text-terminal"></div>
+	</div>
+		<pre class="bg-terminal"><span>a2enmod rewrite</span><br><span>sudo /etc/init.d/apache2 restart</span></pre>
+</div>

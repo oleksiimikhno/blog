@@ -1,0 +1,26 @@
+<nav id="menu" class="menu">
+	<a href="{{ site.baseurl }}/" target="">
+		<header class="menu-header">
+			<span class="menu-header-title">XioDevBlog</span>
+		</header>
+	</a>
+	<section class="menu-section">
+		<ul class="menu-section-list">
+			<li class="active"><a href="{{ site.baseurl }}/">Home</a></li>
+			<li><a href="#">About me</a></li>
+			<li><a href="#">Portfolio</a></li>
+		</ul>
+	</section>
+	<section class="menu-down-list">
+		<h3 class="menu-category-title">navigation</h3>
+	{% for category in site.categories %}
+		{% capture category_name %}{{ category | first }}{% endcapture %}
+		<h4 class="menu-section-title"><i class="icon-nav icon-{{ category_name }}"></i> {{ category_name }}</h4>
+		<ul class="menu-section-list">
+			{% for post in site.categories[category_name] %}
+			<li class=""><a href="{{ site.baseurl }}{{ post.url }}">{{post.title}}</a></li>
+			{% endfor %}
+		</ul>
+	{% endfor %}		
+	</section>
+</nav>

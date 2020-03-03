@@ -1,0 +1,55 @@
+<div class="post-list">
+	{% for post in paginator.posts %}
+	<article>
+		<header class="panel-heading">
+			<a class="post-link" href="{{ post.url | prepend: site.baseurl }}"><h2>{{ post.title }}</h2></a>
+		</header>
+		<div class="post-bg {{ post.categories }}">
+			<p class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</p>
+			<p class="desctiption">{{ post.description }}</p>
+			
+
+			</div>
+		<footer>
+			<!-- Tag-plugin -->
+
+			<p class="post-tags">
+				<span>#</span>
+				{% for tag in post.tags %}
+					{% capture tag_name %}{{ tag }}{% endcapture %}
+					<a class="no-underline" href="{{ site.github.url }}/tag/{{ tag_name }}"><span class="highligher-rouge">{{ tag_name }}</span></a>
+				{% endfor %}
+			</p>
+			<!-- Tag-plugin END -->
+			<a href="{{ post.url | prepend: site.baseurl }}"><p class="in-side-post-href">Detail...</p></a>
+		</footer>
+	</article>
+	{% endfor %}
+<!-- Pagination -->
+	{% if paginator.total_pages > 1 %}
+	<div class="pagination"> 
+		{% if paginator.previous_page %}
+		<a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&laquo; Prev</a>
+		{% else %}
+		<span>&laquo; Prev</span>
+		{% endif %}
+
+		{% for page in (1..paginator.total_pages) %}
+		{% if page == paginator.page %}
+		  <span class="page-cover">{{ page }}</span>
+		{% elsif page == 1 %}
+		  <a href="{{ site.baseurl }}/">{{ page }}</a>
+		{% else %}
+		  <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a>
+		{% endif %}
+		{% endfor %}
+
+		{% if paginator.next_page %}
+		<a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Next &raquo;</a>
+		{% else %}
+		<span>Next &raquo;</span>
+		{% endif %}
+	</div>
+	{% endif %}
+<!-- Pagination END -->
+</div>

@@ -1,0 +1,136 @@
+.container{
+	@media only screen and (max-width : 992px) {
+		padding: 0;
+	}
+}
+
+main.home{
+	position: relative;
+	padding-left: 0;
+	@media only screen and (max-width : 992px) {
+		padding: 0;
+	}
+	article{
+		background-color: #fff;
+		margin-bottom: 20px;
+		clear: both;
+		h2{
+			margin: 0;
+			color: #fff;
+		}
+		a{
+			text-decoration: none;
+		}
+		.post-meta{
+			margin: 8px 8px 0px 0px;
+			color: #555;
+			font-weight: 100;
+			text-align: right;
+		}
+	}
+	footer{
+		position: relative;
+		width: 100%;
+		.post-tags{
+			position: absolute;
+			left: 0px;
+			bottom: 0px;
+			margin: 0 0 5px;
+			padding: 0 10px;
+			font-family: sans-serif;
+			text-align: left;
+			font-size: 14px;
+			color: #666;
+		}
+		.in-side-post-href{
+			width: 100px;
+			position: absolute;
+			right: 0px;
+			bottom: 0px;
+			margin: 10px;
+			padding: 5px;
+			border-radius: 4px;
+			background-color: #666;
+			color: #fff;
+			font-size: 0.9em;
+			&:hover{
+				border: 1px solid #666;
+				background-color: #fff;
+				color: #666;
+				
+			}
+		}
+	}
+}
+
+//Background posts
+.post-bg{
+	position: relative;
+	min-height: 300px;
+	padding: 10px 0px;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.opencart{
+	background-image: url(../assets/img/icon/opencart.svg);
+}
+.javascript{
+	background-image: url(../assets/img/icon/javascript.svg);
+}
+.html5{
+	background-image: url(../assets/img/icon/html5.svg);
+}
+.css3{
+	background-image: url(../assets/img/icon/css3.svg);
+}
+.mysql{
+	background-image: url(../assets/img/icon/mysql.svg);
+}
+.jekyll{
+	background-image: url(../assets/img/icon/jekyll.svg);
+}
+.php{
+	background-image: url(../assets/img/icon/php.svg);
+}
+.github{
+	background-image: url(../assets/img/icon/github.svg);
+}
+.gulp{
+	background-image: url(../assets/img/icon/gulp.svg);
+}
+//Background posts END
+
+//Description post
+.desctiption{
+	margin: 10px 20px;
+	font-family: sans-serif;
+	line-height: 1.2;
+	font-size: 16px;
+}
+
+//Pagination
+.pagination a, .pagination span {
+	padding: 7px 18px;
+	border: 1px solid #eee;
+	margin-left: -2px;
+	margin-right: -2px;
+	background-color: #fff;
+	display: inline-block;
+}
+
+.pagination {
+	color: #888;
+	text-align: center;
+	a:visited{
+		color: #111;
+	}
+}
+
+.pagination a {
+	&:hover {
+		text-decoration: none;
+		background-color: #555;
+		color: #fff;
+	}
+}
+//Pagination END

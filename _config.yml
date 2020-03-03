@@ -1,0 +1,16 @@
+name: XioDevBlog
+markdown: kramdown
+highlighter: pygments # or rouge or null
+exclude: ["node_modules", "gulpfile.js", "package.json", "README.md"]
+
+
+permalink: /:categories/:title/
+
+# limit_posts: 2
+gems: [jekyll-paginate]
+plugins_dir: jekyll-paginate
+paginate: 6
+paginate_path: /page:num/
+
+
+disqus: DISQUS-XioDevBlog

@@ -1,0 +1,55 @@
+aside.aside-panel{
+	padding: 0;
+	#accordion{
+		background-color: #b3b3b3;
+		.panel{
+			border: 0;
+			.panel-title-link{
+				text-transform: uppercase;
+				text-decoration: none;
+				outline: none;
+			}
+		}
+	}
+	.panel-heading{
+		.panel-title{
+			position: relative;
+			top: 5px;
+			font-size: 1.4em;
+			height: 34px;
+		}	
+	}
+	// Fill active panel
+	.select-white{
+		background-color: #fff;
+		color: #555;
+		.under-line{
+			display: block;
+			margin: 0 auto;
+			width: 80%;
+			transition-duration: 0.5s;
+			border-bottom: 2px solid;
+		}
+		&:hover{
+			background-color: #333;
+			color: #ececec;
+		}
+	}
+	// Fill active panel
+	.panel-body{
+		font-family: sans-serif;
+		background-color: #fff;
+		border: 0;
+	}
+}
+
+.archive-item{
+	h4{
+		font-size: .9em;
+	}
+	
+}
+.archive{
+	clear: both;
+	margin-bottom: 20px;
+}

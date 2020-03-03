@@ -1,0 +1,32 @@
+footer{
+	font-family: sans-serif;
+	ul>li{
+		display: inline-block;
+		margin: 15px;
+		font-size: 16px;
+		float: left;
+		a{
+			color: #333;
+		}
+		a:visited{
+			color: #333;
+		}
+		a{
+			&:hover{
+				text-decoration: none;
+				color: #999;
+			}
+		}
+	}
+	.wrapper{
+		clear: both;
+		font-size: 12px;
+	}
+}
+
+.site-footer{
+	padding: 0px;
+	p{
+		margin: 0;
+	}
+}

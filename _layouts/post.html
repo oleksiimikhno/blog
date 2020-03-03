@@ -1,0 +1,27 @@
+---
+layout: default
+---
+<section class="col-md-8">
+	<article class="inside-post">
+		<header class="header">
+			<h2>{{ page.title }}</h2>
+			<p class="meta">{{ page.date | date_to_string }}</p>
+		</header>
+		<div class="post">
+
+			{{ content }}
+
+			<span>[
+			  {% for tag in page.tags %}
+			    {% capture tag_name %}{{ tag }}{% endcapture %}
+			    <a href="{{ site.baseurl }}/tag/{{ tag_name }}"><code class="highligher-rouge"><nobr>{{ tag_name }}</nobr></code>&nbsp;</a>
+			  {% endfor %}
+			]</span>
+		</div>
+		<footer>
+		{% if post.comments != 0 %}
+			{% include  disqus.html %}
+		{% endif %}
+		</footer>
+	</article>
+</section>
